@@ -2,8 +2,9 @@ import * as bodyParser from 'body-parser';
 import * as router from '../router';
 import {Server} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
-import {Request, Response} from "express-serve-static-core";
+import {Request, Response, RequestHandler} from "express-serve-static-core";
 import {NextFunction} from "express";
+import db from '../database';
 
 class ExampleServer extends Server {
 
@@ -29,23 +30,25 @@ class ExampleServer extends Server {
 
     public start(port: number): void {
 
-        this.app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-            Logger.Err(err.error + '\n' + err.message);
-            res.status(err.status || 400).json({
-                message: err.message || 'An error.',
-                errors: err.error || ['Unexpected error'],
+        db.then(connection => {
+            this.app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+                Logger.Err(err.stack);
+                res.status(err.status || 400).json({
+                    message: err.message || 'An error.',
+                    errors: err.error || ['Unexpected error'],
+                });
             });
-        });
 
-        this.app.use((req: Request, res: Response) => {
-            res.status(404).json({
-                message: 'Not found',
-                errors: ['404 not found'],
+            this.app.use((req: Request, res: Response) => {
+                res.status(404).json({
+                    message: 'Not found',
+                    errors: ['404 not found'],
+                });
             });
-        });
 
-        this.app.listen(port, () => {
-            Logger.Imp(this.SERVER_STARTED + port);
+            this.app.listen(port, () => {
+                Logger.Imp(this.SERVER_STARTED + port);
+            });
         });
     }
 }
