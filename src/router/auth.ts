@@ -1,13 +1,15 @@
 import {Request, Response} from 'express';
 import {Controller, Middleware, Get, Put, Post, Delete} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
+import db from '../database';
 
 @Controller('')
 export class ExampleController {
 
     @Get(':msg')
-    private getMessage(req: Request, res: Response) {
+    private async getMessage(req: Request, res: Response) {
         Logger.Info(req.params.msg);
+        let x = await db;
         res.status(200).json({
             message: req.params.msg,
         });
