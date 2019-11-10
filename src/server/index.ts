@@ -34,8 +34,8 @@ class ExampleServer extends Server {
             this.app.use((err: any, req: Request, res: Response, next: NextFunction) => {
                 Logger.Err(err.stack);
                 res.status(err.status || 400).json({
-                    message: err.message || 'An error.',
-                    errors: err.error || ['Unexpected error'],
+                    message: false,
+                    errors: err.message || 'Unexpected error.',
                 });
             });
 

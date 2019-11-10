@@ -1,2 +1,2 @@
-// export * from './auth';
-export * from './register';
+export * from './RegisterController';
+export * from './AuthController';
