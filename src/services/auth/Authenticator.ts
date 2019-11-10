@@ -11,7 +11,6 @@ export default class Authenticator extends AuthServiceUserHandler {
     constructor(userRepository: Repository<User>, authPostRequest: AuthPostRequest) {
         super(userRepository);
         this.authPostRequest = authPostRequest;
-
     }
 
     public async getUser(): Promise<User | boolean> {

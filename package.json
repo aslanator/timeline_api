@@ -16,24 +16,31 @@
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "reflect-metadata": "^0.1.13",
+    "rm": "^0.1.8",
     "typeorm": "^0.2.20"
   },
   "devDependencies": {
+    "@fluffy-spoon/substitute": "^1.89.0",
     "@types/bcrypt-nodejs": "0.0.30",
+    "@types/bluebird": "^3.5.28",
     "@types/body-parser": "^1.17.1",
     "@types/express": "^4.17.1",
+    "@types/jest": "^24.0.22",
     "@types/jsonwebtoken": "^8.3.5",
     "@types/node": "^12.12.7",
-    "@types/bluebird": "^3.5.28",
     "@types/validator": "^10.11.3",
+    "jest": "^24.9.0",
     "nodemon": "^1.19.4",
+    "substitute": "^0.7.1",
+    "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.7.2"
   },
   "scripts": {
     "dev": "nodemon  --watch 'src/*/**' --watch 'app.ts' -e ts,tsx --exec ts-node ./app.ts",
     "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
-    "migration:rever": "ts-node ./node_modules/typeorm/cli.js migration:revert"
+    "migration:rever": "ts-node ./node_modules/typeorm/cli.js migration:revert",
+    "test": "jest"
   },
   "author": "Aslanator",
   "license": "ISC"
