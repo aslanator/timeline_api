@@ -1,7 +1,6 @@
 import {User} from "../../models/User";
 import {AuthPostRequest} from "../../request-body/AuthPostRequest";
 import {Repository} from "typeorm";
-import {RegisterPostRequest} from "../../request-body/RegisterPostRequest";
 import AuthServiceUserHandler from "./AuthServiceUserHandler";
 import {compareSync} from 'bcrypt-nodejs';
 
