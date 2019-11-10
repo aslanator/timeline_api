@@ -1,0 +1,174 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/aslanator/Timeline/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/aslanator/Timeline/0.0.0
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Timeline api
+  contact:
+    email: aslanator@mail.ru
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: users
+    description: Operations available to regular users
+  - name: any
+    description: Operations avalible to everybody
+paths:
+  /auth:
+    post:
+      tags:
+        - any
+      summary: login
+      operationId: auth
+      description: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: 'auth success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenResponse'
+        '400':
+          description: 'auth fail'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /register:
+    post:
+      tags:
+        - any
+      summary: add new user
+      operationId: register
+      description: simple register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '200':
+          description: 'register success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: 'auth fail'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    AuthRequest:
+      type: object
+      required:
+        - login
+        - password
+
+      properties:
+        login:
+          type: string
+          format: email
+          example: 'M0r64n@pe4kin.com'
+        password:
+          type: string
+          format: password
+          minLength: 6
+          maxLength: 250
+          example: '123457'
+    RegisterRequest:
+      type: object
+      required:
+        - login
+        - password
+        - name
+      properties:
+        login:
+          type: string
+          format: email
+          example: 'M0r64n@pe4kin.com'
+        password:
+          type: string
+          format: password
+          minLength: 6
+          maxLength: 250
+          example: '123457'
+        name:
+          type: string
+          example: 'Valera'
+
+    UserWithTokenResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          $ref: '#/components/schemas/UserWithToken'
+
+    UserResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          $ref: '#/components/schemas/User'
+
+    UserWithToken:
+      type: object
+      required:
+        - user
+        - access_token
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        access_token:
+          type: string
+          example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ'
+
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - login
+
+      properties:
+        id:
+          type: number
+          example: 20
+        login:
+          type: string
+          format: email
+          example: 'M0r64n@pe4kin.com'
+        name:
+          type: string
+          example: 'Valera'
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: ""
+        errors:
+          type: string
+          example: "error in email field"
+      required:
+        - code
+        - message
