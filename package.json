@@ -17,7 +17,7 @@
     "pg-hstore": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "rm": "^0.1.8",
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@fluffy-spoon/substitute": "^1.89.0",
